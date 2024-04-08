@@ -83,7 +83,7 @@ namespace LLMUnity
         };
         public int SelectedModel = 0;
         private static readonly string serverZipUrl = "https://github.com/Mozilla-Ocho/llamafile/releases/download/0.6.2/llamafile-0.6.2.zip";
-        private static readonly string server = LLMUnitySetup.GetAssetPath("llamafile-0.6.2.exe");
+        private static readonly string server = LLMUnitySetup.GetAssetPath("llamafile-0.7.exe");
         private static readonly string apeARMUrl = "https://cosmo.zip/pub/cosmos/bin/ape-arm64.elf";
         private static readonly string apeARM = LLMUnitySetup.GetAssetPath("ape-arm64.elf");
         private static readonly string apeX86_64Url = "https://cosmo.zip/pub/cosmos/bin/ape-x86_64.elf";
@@ -114,11 +114,11 @@ namespace LLMUnity
             if (binariesProgress < 1) return;
             binariesProgress = 0;
             binariesDone = 0;
-            if (!File.Exists(apeARM)) await LLMUnitySetup.DownloadFile(apeARMUrl, apeARM, false, true, null, SetBinariesProgress);
+      //      if (!File.Exists(apeARM)) await LLMUnitySetup.DownloadFile(apeARMUrl, apeARM, false, true, null, SetBinariesProgress);
             binariesDone += 1;
-            if (!File.Exists(apeX86_64)) await LLMUnitySetup.DownloadFile(apeX86_64Url, apeX86_64, false, true, null, SetBinariesProgress);
+      //      if (!File.Exists(apeX86_64)) await LLMUnitySetup.DownloadFile(apeX86_64Url, apeX86_64, false, true, null, SetBinariesProgress);
             binariesDone += 1;
-            if (!File.Exists(server))
+     /*       if (!File.Exists(server))
             {
                 string serverZip = Path.Combine(Application.temporaryCachePath, "llamafile.zip");
                 await LLMUnitySetup.DownloadFile(serverZipUrl, serverZip, true, false, null, SetBinariesProgress);
@@ -139,7 +139,7 @@ namespace LLMUnity
                 }
                 File.Delete(serverZip);
                 binariesDone += 1;
-            }
+            }*/
             binariesProgress = 1;
         }
 
@@ -294,7 +294,7 @@ namespace LLMUnity
             try
             {
                 ServerStatus status = JsonUtility.FromJson<ServerStatus>(message);
-                if (status.message == "model loaded")
+                if (status.msg == "HTTP server listening")
                 {
                     Debug.Log("LLM Server started!");
                     serverListening = true;
